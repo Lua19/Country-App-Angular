@@ -3,14 +3,9 @@
 
 <div class="row">
     <div class="col">
-        <form (ngSubmit)="buscar()" autocomplete="off">
-            <input type="text"
-                    name="query"
-                    class="form-control"
-                    [(ngModel)]="termino"
-                    placeholder="Buscar por pais..."
-            >
-        </form>
+        <app-pais-input (onEnter)=buscar($event) (onDebounce)=sugerencias($event)
+        placeholder="pais">
+        </app-pais-input>
     </div>
 </div>
 <hr>
@@ -20,25 +15,6 @@ class="alert alert-danger">
 </div>
 <div *ngIf="paises.length >0" class="row">
     <div class="col">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Bandera</th>
-                    <th>Nombre</th>
-                    <th>Población</th>
-                    <th>Code</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let pais of paises; let i = index">
-                    <td>{{i+1}}</td>
-                    <td><img class="small-flag" src="{{paises[i].flags.svg}}" alt=""></td>
-                    <td>{{paises[i].name.common}}</td>
-                    <td>{{paises[i].population |number}}</td>
-                    <td><a [routerLink]="['/pais',pais.cca2]">{{paises[i].cca2}}</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <app-pais-tabla [paises]="paises"></app-pais-tabla>
     </div>
 </div>
