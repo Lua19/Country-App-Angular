@@ -18,7 +18,7 @@
 class="alert alert-danger">
     No se encontró ningún país llamado {{termino}}
 </div>
-<div *ngIf="!hayError" class="row">
+<div *ngIf="paises.length >0" class="row">
     <div class="col">
         <table class="table table-hover">
             <thead>
@@ -27,16 +27,16 @@ class="alert alert-danger">
                     <th>Bandera</th>
                     <th>Nombre</th>
                     <th>Población</th>
-                    <th>Etc</th>
+                    <th>Code</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>#</td>
-                    <td>Bandera</td>
-                    <td>Nombre</td>
-                    <td>Población</td>
-                    <td><a href="#">Etc</a></td>
+                <tr *ngFor="let pais of paises; let i = index">
+                    <td>{{i+1}}</td>
+                    <td><img class="small-flag" src="{{paises[i].flags.svg}}" alt=""></td>
+                    <td>{{paises[i].name.common}}</td>
+                    <td>{{paises[i].population |number}}</td>
+                    <td><a [routerLink]="['/pais',pais.cca2]">{{paises[i].cca2}}</a></td>
                 </tr>
             </tbody>
         </table>
